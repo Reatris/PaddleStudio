@@ -5,22 +5,11 @@ syntax = 'proto3';
 package example;
 
 service PaddleXserver {
-  rpc connect(resquest_msg) returns (respone_msg){} //对接确认
   rpc paddlex_init(paddlex_init_cmd) returns (paddlex_init_result){}  //初始化加载模型接口
   rpc paddlex_predict_cls(image) returns (cls_inputs_result){}  //分类模型调用
   rpc paddlex_predict_det(image) returns (det_inputs_result){}     //目标检测结果输出
   rpc paddlex_predict_det_seg(image) returns (det_seg_inputs_result){}      //实例分割结果输出
   rpc paddlex_predict_seg(image) returns (seg_inputs_result){}    //语义分割的结果输出
-}
-
-//对接确认
-
-message resquest_msg {
-  string resquest = 1;
-}
-
-message respone_msg  {
-  string respone = 1;
 }
 
 //图片
@@ -96,5 +85,3 @@ message score_map{
 
 
 //编译命令 python -m grpc_tools.protoc --python_out=. --grpc_python_out=. -I. PaddleXserver.proto
-
-//c#编译命令 protoc.exe路径名 -I proto文件所在文件夹名 --csharp_out 输出地址  proto文件路径 --grpc_out 输出目录 --plugin=protoc-gen-grpc=packages\Grpc.Tools\2.33.1\tools\windows_x64\grpc_csharp_plugin.exe

@@ -1,11 +1,12 @@
-import paddlex as pdx
 import os,sys
 import grpc
-sys.path.append(os.path.join(os.getcwd(),'../example'))
+# sys.path.append('../')
+# sys.path.append(os.path.join(os.getcwd(),'../example'))
 from example import PaddleXserver_pb2
 from example import PaddleXserver_pb2_grpc
 import cv2
 import yaml
+import paddlex as pdx
 
 import numpy as np
 import base64

@@ -8,8 +8,8 @@ import numpy as np
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--model_dir',type=str,default='../model_humanseg_mobile/')
-parser.add_argument('--channel',type=str,default='localhost:50000')
-parser.add_argument('--use_gpu',type=bool,default=True)
+parser.add_argument('--channel',type=str,default='localhost:54888')
+parser.add_argument('--use_gpu',type=bool,default=False)
 parser.add_argument('--gpu_id',type=str,default='0')
 
 args = parser.parse_args()
@@ -19,7 +19,7 @@ def run():
 
     #写入视频
     fps = 25          # 视频帧率
-    size = (1920, 1080) # 需要转为视频的图片的尺寸
+    size = (360, 640) # 需要转为视频的图片的尺寸
     video = cv2.VideoWriter("../output.mp4", cv2.VideoWriter_fourcc(*'mp4v'), fps, size)
     FPS_NUM = 0
 
@@ -36,7 +36,7 @@ def run():
 
     #读取视频流
     total_NUM = 0
-    cap = cv2.VideoCapture("../REA.mp4")
+    cap = cv2.VideoCapture("../man.mp4")
     while cap.isOpened():
         ret, frame = cap.read()
 

@@ -1,8 +1,9 @@
 import os,sys
+# sys.path.append('../Packages')
 import grpc
-sys.path.append(os.path.join(os.getcwd(),'../example'))
-import PaddleXserver_pb2
-import PaddleXserver_pb2_grpc
+# sys.path.append(os.path.join(os.getcwd(),'../example'))
+from example import PaddleXserver_pb2
+from example import PaddleXserver_pb2_grpc
 import cv2
 import paddlex as pdx
 
@@ -23,6 +24,9 @@ def base64_to_image(img):
     return img
 
 class Predict_det:
+    '''
+    客户端预测对象
+    '''
     def __init__(self,channel,model_dir,use_gpu,gpu_id = '0'):
         # 链接rpc 服务器
         self.channel = grpc.insecure_channel(channel)   #str
@@ -36,7 +40,7 @@ class Predict_det:
         '''
         将参数传给服务端，加载模型返回加载结果
         '''
-        print('use model_dir'+self.model_dir)
+        # print('use model_dir'+self.model_dir)
         respone =  self.stub.paddlex_init(PaddleXserver_pb2.paddlex_init_cmd(
             model_dir = self.model_dir,
             use_gpu = self.use_gpu,
@@ -133,6 +137,6 @@ class Predict_det:
             dict_temp['score_map'].append(temp.astype('float32'))
         dict_temp['score_map'] = np.concatenate(dict_temp['score_map'],axis=2)
         dict_temp['label_map'] = base64_to_image(respone.label_map)
-        result = pdx.seg.visualize(or_img, dict_temp, weight=respone.set_threshold, save_dir=None, color=None)
-        return result
+        visualize_img = pdx.seg.visualize(or_img, dict_temp, weight=respone.set_threshold, save_dir=None, color=None)
+        return visualize_img
 

@@ -4,7 +4,7 @@ import grpc,sys,os
 sys.path.append(os.path.join(os.getcwd(),'../example'))
 
 
-import PaddleXserver_pb2 as PaddleXserver__pb2
+from example import PaddleXserver_pb2 as PaddleXserver__pb2
 
 
 class PaddleXserverStub(object):
